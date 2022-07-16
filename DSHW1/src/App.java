@@ -38,7 +38,8 @@ public class App {
 		System.out.println("The new total: " + A);
 		
 		System.out.println("New total decimal form: " + A.toDecimal());
-		
+		change 
 	}
+	asdlfkjhkljgfhakjhfgaslkfhdlksadjhgakjslhfjkhakjldhakdls
 
 }
