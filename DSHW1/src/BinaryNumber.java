@@ -1,4 +1,6 @@
 //CS570 - Alden Park 
+//this is the big endian format which affects the adding function and toDecimal
+//ask professor if this is okay
 
 public class BinaryNumber {
 	//variables
@@ -17,7 +19,7 @@ public class BinaryNumber {
 			throw new Exception("Invalid, try again");
 		}
 	}
-
+    //handle the strings and numbers
     public BinaryNumber(String str) throws Exception {
 		data = new int[str.length()];
         for (int i = 0; i < str.length(); i++) {
@@ -34,6 +36,7 @@ public class BinaryNumber {
         return data.length;
     }
     
+    //it should handle the negative index 
     public int getDigit(int index) throws Exception {
         try {
             return data[index];
@@ -116,7 +119,7 @@ public class BinaryNumber {
         int total = 0;
 
         for (int i = 0; i < data.length; i++) {
-            num = getDigit(data.length - i -1);
+            num = getDigit(data.length - i - 1);
             total += num * Math.pow(2, i);
         }
         return total;
