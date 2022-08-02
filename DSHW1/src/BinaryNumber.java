@@ -9,20 +9,22 @@ public class BinaryNumber {
     
 	//constructors 
 	public BinaryNumber(int length) throws Exception {
-		try {
-			data = new int[length];
-			for (int i = 0; i < length; i++) {
-				data[i] = 0;
-			}
-		}
-		catch (NegativeArraySizeException na) {
-			throw new Exception("Invalid, try again");
-		}
+        data = new int[length];
+        if (length < 0) {
+            throw new Exception ("this number is negative");
+        }
+        for (int i = 0; i < length; i++) {
+            data[i] = 0;
+        }
 	}
+
     //handle the strings and numbers
     public BinaryNumber(String str) throws Exception {
 		data = new int[str.length()];
-        for (int i = 0; i < str.length(); i++) {
+        if(!(str instanceof String)) {
+            throw new Exception("please enter a string");
+        }
+        for (int i = 0; i <= str.length()-1; i++) {
             int num = Character.getNumericValue(str.charAt(i));
             if (num > 1 || num < 0) {
             	throw new Exception("Enter valid binary numbers 1 or 0");
@@ -50,13 +52,15 @@ public class BinaryNumber {
     public void shiftR(int amount) throws Exception {
         //create a temporary new array 
         int[] shiftedData = new int[data.length + amount];
+        if (amount < 0) {
+            throw new Exception ("enter non-negative amount");
+        }
         for (int i = 0; i < amount; i++) {
             shiftedData[i] = 0;
         }
-        for (int j = 0; j < data.length; j++) {
-            shiftedData[amount + j] = data[j];
+        for (int i = 0; i < data.length; i++) {
+            shiftedData[amount + i] = data[i];
         }
-        //new array become the current array 
         data = shiftedData;
     }
 
@@ -72,7 +76,7 @@ public class BinaryNumber {
         }
         else {
             for (int j = data.length -1; j >= 0; j--) {
-                total = getDigit(j)%10 + aBinaryNumber.getDigit(j) + carry;
+                total = getDigit(j) + aBinaryNumber.getDigit(j) + carry;
 
                 if (total == 2) {
                     carry = 1;
@@ -90,7 +94,7 @@ public class BinaryNumber {
                 }
             }
         }
-        if (carry > 1){
+        if (carry >= 1){
             overflow = true; 
         }
         else {
@@ -130,5 +134,47 @@ public class BinaryNumber {
     public void clearOverflow() {
         overflow = false;
     }
+
+
+    //main function
+    public static void main (String[] args) throws Exception {
+		System.out.println("\nPlease note this is in big-endian format\n");
+    
+		//constructors + getters for the binary numbers 
+		BinaryNumber A = new BinaryNumber("10110");		//change 
+		System.out.println("Binary A = " + A);
+		//see length
+		System.out.println("Length of binary: "+ A.getLength()); 
+		//get digit
+		System.out.println("In binary A, the digit is : " + A.getDigit(2)); //get digit at the index location (change value)
+		//get decimal
+		System.out.println("Binary to decimal form: " + A.toDecimal());
+		//shift test
+		A.shiftR(2);	//change 
+		System.out.println("SHIFTED: " + A);
+		
+		
+		//spacing
+		System.out.println("\n");
+		
+		//duplicate tests for second binary
+		BinaryNumber B = new BinaryNumber("11100");		//change
+		System.out.println("Binary B = " + B);
+		System.out.println("Length of binary: "+ B.getLength()); 
+		System.out.println("In binary A, the digit is : " + B.getDigit(1)); 		//get digit at index location
+		System.out.println("Binary to decimal form: " + B.toDecimal());
+		B.shiftR(2);		
+		System.out.println("SHIFTED: " + B);
+		
+		//spacing
+		System.out.println("\n");
+		
+		//adding the binary numbers
+		A.add(B);
+		System.out.println("The new total: " + A);
+		
+		System.out.println("New total decimal form: " + A.toDecimal());
+		
+	}
 
 }
