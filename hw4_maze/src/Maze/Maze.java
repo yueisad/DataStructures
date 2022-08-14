@@ -37,6 +37,9 @@ public class Maze implements GridColors {
      * @return If a path through (x, y) is found, true;
      *         otherwise, false
      */
+
+    // ADD METHOD FOR PROBLEM 1 HERE
+
     public boolean findMazePath(int x, int y) {
 
         if (x > maze.getNCols() - 1 || y > maze.getNRows() - 1 || x < 0 || y < 0){
